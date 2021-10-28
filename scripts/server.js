@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 const compression = require('compression');
 const helmet = require('helmet');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const jsforce = require('jsforce');
 
@@ -30,6 +31,8 @@ const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3001;
 const DIST_DIR = './dist';
 
+let sessionId;
+
 app.use(express.static(DIST_DIR));
 
 app.get('/', (req, res) => {
@@ -51,14 +54,9 @@ app.get('/oauth2/callback', function(req, res) {
     conn.authorize(code, function(err, userInfo) {
         if (err) { return console.error(err); }        
     }).then(uRes =>{
-        conn.tooling.query("Select Title,SupportsRevoke,IsReleased,DueDate,Description,DeveloperName,Status,Release,ReleaseLabel,ReleaseDate From ReleaseUpdate WHERE DeveloperName = 'AuraSecStaticResCRUC'")
-        .then(qRes =>{
-            console.log(qRes.records[0]);
-            console.log(qRes.records[0].Status === 'Revocable');
-            res.redirect('/?isEnabled='+(qRes.records[0].Status === 'Revocable'));
-        }).catch(err => {
-            console.log(err);
-        });
+        res.cookie('mySess',conn.accessToken);
+        res.cookie('myServ',conn.instanceUrl);
+        res.redirect('/?success=true');
     });
 });
 
