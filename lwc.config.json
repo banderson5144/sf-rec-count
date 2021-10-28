@@ -8,6 +8,9 @@
         },
         {
             "npm": "lightning-base-components"
+        },
+        {
+            "npm": "lodash"
         }
     ]
 }

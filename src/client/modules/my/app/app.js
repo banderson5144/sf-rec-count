@@ -1,4 +1,5 @@
 import { LightningElement } from 'lwc';
+import _ from 'lodash';
 
 export default class App extends LightningElement
 {
@@ -20,6 +21,9 @@ export default class App extends LightningElement
     {
         fetch('/getcounts')
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data =>{
+            console.log(_.orderBy(data.sObjects,'count', 'desc'));
+            
+        });
     }
 }
