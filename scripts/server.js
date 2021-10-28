@@ -32,8 +32,6 @@ const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3001;
 const DIST_DIR = './dist';
 
-let sessionId;
-
 app.use(express.static(DIST_DIR));
 
 app.get('/', (req, res) => {
@@ -45,13 +43,14 @@ app.get('/', (req, res) => {
 // //
 app.get('/oauth2/auth', function(req, res) {
     var isSandbox = req.query.isSandbox === 'true';
-    res.redirect(`https://${isSandbox?'test':'login'}.salesforce.com/services/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`);
+    res.redirect(`https://${isSandbox?'test':'login'}.salesforce.com/services/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${isSandbox?'test':'login'}`);
 });
 
 app.get('/oauth2/callback', function(req, res) {
-    var conn = new jsforce.Connection({ oauth2 : oauth2, version: '50.0' });
+    oauth2.loginUrl = `https://${req.query.state}.salesforce.com`;
+    let conn = new jsforce.Connection({ oauth2 : oauth2, version: '50.0' });
     
-    var code = req.query.code;
+    let code = req.query.code;
     conn.authorize(code, function(err, userInfo) {
         if (err) { return console.error(err); }        
     }).then(uRes =>{
