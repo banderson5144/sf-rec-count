@@ -1,10 +1,15 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import _ from 'lodash';
 
 export default class App extends LightningElement
 {
     success = false;
     isSet = false;
+    columns = [
+        { label: 'sObject API Name', fieldName: 'name' },
+        { label: 'Count', fieldName: 'count' },
+    ];
+    @track data = [];
 
     connectedCallback()
     {
@@ -22,8 +27,8 @@ export default class App extends LightningElement
         fetch('/getcounts')
         .then(response => response.json())
         .then(data =>{
-            console.log(_.orderBy(data.sObjects,'count', 'desc'));
-            
+            data = _.orderBy(data.sObjects,'count', 'desc');
+            console.log(data);            
         });
     }
 }
