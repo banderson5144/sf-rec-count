@@ -11,14 +11,7 @@
     <lightning-layout horizontal-align="center">
         <lightning-layout-item size="8" padding="around-small">
             <template if:true={isSet}>
-                <template if:true={isEnabled}>
-                    <lightning-icon icon-name="action:close" alternative-text="Error" title="Error"></lightning-icon>
-                    Please disable this update under <b>Setup -> Release Updates</b>
-                </template>  
-                <template if:false={isEnabled}>
-                    <lightning-icon icon-name="action:approval" alternative-text="Success" title="Success"></lightning-icon>
-                    No action needed at this time
-                </template>
+                whats good
             </template>
             <template if:false={isSet}>
                 <a class="slds-button slds-button_brand" href="/oauth2/auth?isSandbox=false">Production</a>
