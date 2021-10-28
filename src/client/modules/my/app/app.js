@@ -15,4 +15,11 @@ export default class App extends LightningElement
             this.success = searchParams.get('success') === 'true';
         }
     }
+
+    handleClick(evt)
+    {
+        fetch('/getcounts')
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
 }
