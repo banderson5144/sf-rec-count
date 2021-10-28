@@ -24,6 +24,7 @@ const oauth2 = new jsforce.OAuth2({
 });
 
 const app = express();
+app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
 
