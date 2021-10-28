@@ -9,7 +9,7 @@ export default class App extends LightningElement
         { label: 'sObject API Name', fieldName: 'name' },
         { label: 'Count', fieldName: 'count' },
     ];
-    @track data = [{name:'foo',count:'1'}];
+    @track tblData = [{name:'foo',count:'1'}];
 
     connectedCallback()
     {
@@ -27,8 +27,8 @@ export default class App extends LightningElement
         fetch('/getcounts')
         .then(response => response.json())
         .then(data =>{
-            data = _.orderBy(data.sObjects,'count', 'desc');
-            console.log(data);            
+            this.tblData = _.orderBy(data.sObjects,'count', 'desc');
+            console.log(this.tblData);            
         });
     }
 }
