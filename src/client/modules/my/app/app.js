@@ -9,7 +9,7 @@ export default class App extends LightningElement
         { label: 'sObject API Name', fieldName: 'name' },
         { label: 'Count', fieldName: 'count' },
     ];
-    @track data = [];
+    @track data = [{name:'foo',count:'1'}];
 
     connectedCallback()
     {
