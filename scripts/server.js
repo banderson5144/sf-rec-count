@@ -12,17 +12,6 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const redirectUri = process.env.REDIRECT_URI;
 
-// //
-// // OAuth2 client information can be shared with multiple connections.
-// //
-const oauth2 = new jsforce.OAuth2({
-    // you can change loginUrl to connect to sandbox or prerelease env.
-    // loginUrl : 'https://test.salesforce.com',
-    clientId : clientId,
-    clientSecret : clientSecret,
-    redirectUri : redirectUri
-});
-
 const app = express();
 app.use(cookieParser());
 app.use(helmet());
@@ -47,7 +36,15 @@ app.get('/oauth2/auth', function(req, res) {
 });
 
 app.get('/oauth2/callback', function(req, res) {
-    oauth2.loginUrl = `https://${req.query.state}.salesforce.com`;
+    
+    let oauth2 = new jsforce.OAuth2({
+        // you can change loginUrl to connect to sandbox or prerelease env.
+        loginUrl : `https://${req.query.state}.salesforce.com`,
+        clientId : clientId,
+        clientSecret : clientSecret,
+        redirectUri : redirectUri
+    });
+
     let conn = new jsforce.Connection({ oauth2 : oauth2, version: '50.0' });
     
     let code = req.query.code;
