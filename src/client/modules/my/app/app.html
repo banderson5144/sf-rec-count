@@ -20,6 +20,7 @@
                     >
                     </lightning-datatable>
                 </div>
+                <lightning-button variant="brand" label="Download CSV" title="Download CSV" onclick={downloadCsv}></lightning-button>
             </template>
             <template if:false={isSet}>
                 <a class="slds-button slds-button_brand" href="/oauth2/auth?isSandbox=false">Production</a>

@@ -11,6 +11,9 @@
         },
         {
             "npm": "lodash"
+        },
+        {
+            "npm": "json2csv"
         }
     ]
 }
