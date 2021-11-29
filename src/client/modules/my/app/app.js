@@ -1,6 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import _ from 'lodash';
-import parse from 'json2csv';
+import j2c from 'json2csv';
 
 export default class App extends LightningElement {
     success = false;
@@ -36,7 +36,7 @@ export default class App extends LightningElement {
         const fields = ['name', 'count'];
         const opts = { fields };
 
-        const csv = parse(myData, opts);
+        const csv = j2c.parse(myData, opts);
 
         var hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
