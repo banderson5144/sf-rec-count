@@ -5,6 +5,7 @@ import j2c from 'json2csv';
 export default class App extends LightningElement {
     success = false;
     isSet = false;
+    canDownload = false;
     columns = [
         { label: 'sObject API Name', fieldName: 'name' },
         { label: 'Count', fieldName: 'count' }
