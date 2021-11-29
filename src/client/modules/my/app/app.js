@@ -41,7 +41,7 @@ export default class App extends LightningElement {
         var hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
         hiddenElement.target = '_blank';
-        hiddenElement.download = 'people.csv';
+        hiddenElement.download = 'sf_record_count.csv';
         hiddenElement.click();
     }
 }
